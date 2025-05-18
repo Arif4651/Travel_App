@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'welcome.dart';
 
 class homepage extends StatefulWidget {
   const homepage({super.key});
@@ -69,14 +70,29 @@ class _homepageState extends State<homepage> with TickerProviderStateMixin {
     // Animation sequence
     _titleController.forward().then((_) => _textController.forward());
 
-    // Navigate after animations
+    // Modified navigation logic
     _textController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Future.delayed(const Duration(seconds: 2), () {
-          // Replace with your main screen navigation
-          // Navigator.pushReplacement(context, ...);
+        _logoController.forward().then((_) {
+          Future.delayed(const Duration(milliseconds: 2000), () {
+            Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                pageBuilder:
+                    (context, animation, secondaryAnimation) => welcome(),
+                transitionsBuilder: (
+                  context,
+                  animation,
+                  secondaryAnimation,
+                  child,
+                ) {
+                  return FadeTransition(opacity: animation, child: child);
+                },
+                transitionDuration: const Duration(milliseconds: 1000),
+              ),
+            );
+          });
         });
-        _logoController.forward();
       }
     });
   }
