@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'login.dart';
+import 'signup.dart';
 
 class welcome extends StatelessWidget {
   @override
@@ -83,13 +86,57 @@ class welcome extends StatelessWidget {
                 _buildAuthButton(
                   text: "Log In",
                   color: Colors.blueAccent,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration(milliseconds: 500),
+                        pageBuilder: (_, __, ___) => LoginScreen(),
+                        transitionsBuilder: (_, animation, __, child) {
+                          return SlideTransition(
+                            position: Tween<Offset>(
+                              begin: Offset(0.0, 1.0),
+                              end: Offset.zero,
+                            ).animate(
+                              CurvedAnimation(
+                                parent: animation,
+                                curve: Curves.easeInOutQuint,
+                              ),
+                            ),
+                            child: child,
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(height: 20),
                 _buildAuthButton(
                   text: "Sign Up",
                   color: Colors.greenAccent,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        transitionDuration: Duration(milliseconds: 500),
+                        pageBuilder: (_, __, ___) => Signup(),
+                        transitionsBuilder: (_, animation, __, child) {
+                          return SlideTransition(
+                            position: Tween<Offset>(
+                              begin: Offset(0.0, 1.0),
+                              end: Offset.zero,
+                            ).animate(
+                              CurvedAnimation(
+                                parent: animation,
+                                curve: Curves.easeInOutQuint,
+                              ),
+                            ),
+                            child: child,
+                          );
+                        },
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

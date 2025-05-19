@@ -19,3 +19,9 @@ subprojects {
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
+
+buildscript {
+    extra.apply {
+        set("ndkVersion", "25.1.8937393")
+    }
+}
